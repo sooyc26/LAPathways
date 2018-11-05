@@ -44,19 +44,19 @@ class RecommendationLogic extends React.Component {
             edit:false,
 
         }
-        this.handleExpertiseChange = this.handleExpertiseChange.bind(this);
-        this.handleResourceChange = this.handleResourceChange.bind(this);
-        this.handleQuestionChange = this.handleQuestionChange.bind(this);
-        this.handleQuestionTwoChange = this.handleQuestionTwoChange.bind(this);
-        this.getQuestionTwoOptions = this.getQuestionTwoOptions.bind(this);
-        this.getAnswerOptionsOne = this.getAnswerOptionsOne.bind(this)
-        this.getAnswerOptionsTwo = this.getAnswerOptionsTwo.bind(this);
-        this.handleAnswerChange = this.handleAnswerChange.bind(this);
-        this.handleAnswerTwoChange = this.handleAnswerTwoChange.bind(this);
-        this.handleOptionChange = this.handleOptionChange.bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.newQuestion = this.newQuestion.bind(this);
-        this.submit = this.submit.bind(this);
+//         this.handleExpertiseChange = this.handleExpertiseChange.bind(this);
+//         this.handleResourceChange = this.handleResourceChange.bind(this);
+//         this.handleQuestionChange = this.handleQuestionChange.bind(this);
+//         this.handleQuestionTwoChange = this.handleQuestionTwoChange.bind(this);
+//         this.getQuestionTwoOptions = this.getQuestionTwoOptions.bind(this);
+//         this.getAnswerOptionsOne = this.getAnswerOptionsOne.bind(this)
+//         this.getAnswerOptionsTwo = this.getAnswerOptionsTwo.bind(this);
+//         this.handleAnswerChange = this.handleAnswerChange.bind(this);
+//         this.handleAnswerTwoChange = this.handleAnswerTwoChange.bind(this);
+//         this.handleOptionChange = this.handleOptionChange.bind(this);
+//         this.onChange = this.onChange.bind(this);
+//         this.newQuestion = this.newQuestion.bind(this);
+//         this.submit = this.submit.bind(this);
         this.toRecommendationList = this.toRecommendationList.bind(this);
         this.selectDropdowns = this.selectDropdowns.bind(this)
         this.extractAnswerOptionId = this.extractAnswerOptionId.bind(this)
@@ -67,30 +67,30 @@ class RecommendationLogic extends React.Component {
     }
 
     componentDidMount() {
-        const prom1 = recommendationServices.getQuestionsBySectionId(process.env.REACT_APP_MAIN_ASSESSMENT_ID)
-            .then((response) => {
+//         const prom1 = recommendationServices.getQuestionsBySectionId(process.env.REACT_APP_MAIN_ASSESSMENT_ID)
+//             .then((response) => {
                 
-                const questions = [];
-                const temp = response.items;
-                temp.map(item => { questions.push({ value: item.id, label: item.question }) })
-                this.setState({
-                    questionOptions: questions
-                })
-            })
-        const prom2 = coachExpertiseServices.getAll()
-            .then((response) => {
-                const expertises = [];
-                const temp = response.items;
-                temp.map(item => { expertises.push({ value: item.id, label: item.expertise }) })
-                this.setState({ coachExpertiseOptions: expertises })
-            })
-        const prom3 = resourceService.getAllCategories()
-            .then((response) => {
-                const resources = [];
-                const temp = response.items;
-                temp.map(item => { resources.push({ value: item.id, label: item.type }) })
-                this.setState({ resourceOptions: resources })
-            })
+//                 const questions = [];
+//                 const temp = response.items;
+//                 temp.map(item => { questions.push({ value: item.id, label: item.question }) })
+//                 this.setState({
+//                     questionOptions: questions
+//                 })
+//             })
+//         const prom2 = coachExpertiseServices.getAll()
+//             .then((response) => {
+//                 const expertises = [];
+//                 const temp = response.items;
+//                 temp.map(item => { expertises.push({ value: item.id, label: item.expertise }) })
+//                 this.setState({ coachExpertiseOptions: expertises })
+//             })
+//         const prom3 = resourceService.getAllCategories()
+//             .then((response) => {
+//                 const resources = [];
+//                 const temp = response.items;
+//                 temp.map(item => { resources.push({ value: item.id, label: item.type }) })
+//                 this.setState({ resourceOptions: resources })
+//             })
 
         Promise.all([prom1, prom2, prom3]).then(() => {
 
@@ -243,97 +243,97 @@ class RecommendationLogic extends React.Component {
         }
     }
 
-    getQuestionTwoOptions() {
-        recommendationServices.getQuestionsBySectionId(process.env.REACT_APP_MAIN_ASSESSMENT_ID)
-            .then((response) => {
+//     getQuestionTwoOptions() {
+//         recommendationServices.getQuestionsBySectionId(process.env.REACT_APP_MAIN_ASSESSMENT_ID)
+//             .then((response) => {
                  
-                const questions = [];
-                const temp = response.items;
-                temp.map(item => { questions.push({ value: item.id, label: item.question }) })
-                this.setState({ questionTwoOptions: questions })
-            })
-    }
+//                 const questions = [];
+//                 const temp = response.items;
+//                 temp.map(item => { questions.push({ value: item.id, label: item.question }) })
+//                 this.setState({ questionTwoOptions: questions })
+//             })
+//     }
 
-    getAnswerOptionsOne(selectedQuestion) {
-        recommendationServices.getAnswersByQuestionId(selectedQuestion.value)
-        .then((response) => {           
-                const answers = [];
-                const temp = response.items;
-                temp.map(item => { answers.push({ value: item.id, label: item.text }) })
-                this.setState({ answerOptions: answers,
-                    answerCheck:true
-                })
-            })
-    }
+//     getAnswerOptionsOne(selectedQuestion) {
+//         recommendationServices.getAnswersByQuestionId(selectedQuestion.value)
+//         .then((response) => {           
+//                 const answers = [];
+//                 const temp = response.items;
+//                 temp.map(item => { answers.push({ value: item.id, label: item.text }) })
+//                 this.setState({ answerOptions: answers,
+//                     answerCheck:true
+//                 })
+//             })
+//     }
 
-    getAnswerOptionsTwo(selectedQuestionTwo) {
-        recommendationServices.getAnswersByQuestionId(selectedQuestionTwo.value)
-        .then((response) => {                     
-                const answers = [];
-                const temp = response.items;
-                temp.map(item => { answers.push({ value: item.id, label: item.text }) })
-                this.setState({ answerTwoOptions: answers,
-                    answerCheck2:true
-                })
-            })
+//     getAnswerOptionsTwo(selectedQuestionTwo) {
+//         recommendationServices.getAnswersByQuestionId(selectedQuestionTwo.value)
+//         .then((response) => {                     
+//                 const answers = [];
+//                 const temp = response.items;
+//                 temp.map(item => { answers.push({ value: item.id, label: item.text }) })
+//                 this.setState({ answerTwoOptions: answers,
+//                     answerCheck2:true
+//                 })
+//             })
 
-    }
+//     }
 
-    onChange(e) {
-        const value = { value: e.target.value, input: true };
-        this.setState({
-            [e.target.name]: value
-        })
-    }
+//     onChange(e) {
+//         const value = { value: e.target.value, input: true };
+//         this.setState({
+//             [e.target.name]: value
+//         })
+//     }
 
-    handleExpertiseChange = (selectedCoachExpertise) => { this.setState({ selectedCoachExpertise }) }
+//     handleExpertiseChange = (selectedCoachExpertise) => { this.setState({ selectedCoachExpertise }) }
 
-    handleResourceChange = (selectedResource) => { this.setState({ selectedResource }) }
+//     handleResourceChange = (selectedResource) => { this.setState({ selectedResource }) }
 
-    handleQuestionChange(selectedQuestion) {
+//     handleQuestionChange(selectedQuestion) {
         
-        this.setState(({ selectedQuestion }),
-         this.getAnswerOptionsOne(selectedQuestion))
-    }
+//         this.setState(({ selectedQuestion }),
+//          this.getAnswerOptionsOne(selectedQuestion))
+//     }
 
-    handleQuestionTwoChange(selectedQuestionTwo) {
-        this.setState(({ selectedQuestionTwo }), this.getAnswerOptionsTwo(selectedQuestionTwo))
-    }
+//     handleQuestionTwoChange(selectedQuestionTwo) {
+//         this.setState(({ selectedQuestionTwo }), this.getAnswerOptionsTwo(selectedQuestionTwo))
+//     }
 
-    handleAnswerChange = (selectedAnswer) => { this.setState({ selectedAnswer }) }
+//     handleAnswerChange = (selectedAnswer) => { this.setState({ selectedAnswer }) }
 
-    handleAnswerTwoChange = (selectedAnswerTwo) => { this.setState({ selectedAnswerTwo }) }
+//     handleAnswerTwoChange = (selectedAnswerTwo) => { this.setState({ selectedAnswerTwo }) }
 
-    handleOptionChange(changeEvent) {
-        if (changeEvent.target.type === 'radio') {
-            this.setState({
-                [changeEvent.target.name]: JSON.parse(changeEvent.target.value),
-                radio: true
-            })
-        }
-        else {
-            const target = changeEvent.target;
-            const value = target.type === 'checkbox' ? target.checked : target.value;
-            const name = target.name;
-            this.setState({
-                [name]: JSON.parse(value),
-            })
-        }
-    }
+//     handleOptionChange(changeEvent) {
+//         if (changeEvent.target.type === 'radio') {
+//             this.setState({
+//                 [changeEvent.target.name]: JSON.parse(changeEvent.target.value),
+//                 radio: true
+//             })
+//         }
+//         else {
+//             const target = changeEvent.target;
+//             const value = target.type === 'checkbox' ? target.checked : target.value;
+//             const name = target.name;
+//             this.setState({
+//                 [name]: JSON.parse(value),
+//             })
+//         }
+//     }
 
-    newQuestion() {
-        this.setState(({
-            questionTwoOptions: [
-                { value: 'default', label: 'default' },
-            ],
-            selectedQuestionTwo: null,
+//     newQuestion() {
+//         this.setState(({
+//             questionTwoOptions: [
+//                 { value: 'default', label: 'default' },
+//             ],
+//             selectedQuestionTwo: null,
 
-            answerTwoOptions: [
-                { value: 'default', label: 'default' },
-            ],
-            selectedAnswerTwo: null,
-        }), this.getQuestionTwoOptions)
-    }
+//             answerTwoOptions: [
+//                 { value: 'default', label: 'default' },
+//             ],
+//             selectedAnswerTwo: null,
+//         }), this.getQuestionTwoOptions)
+//     }
 
     submit() {
         const data = this.state;
@@ -373,90 +373,90 @@ class RecommendationLogic extends React.Component {
             }),
         }
         return (
-            <React.Fragment>
-                <header className="content__title">
-                    <h1>Recommendation Logic</h1>
-                </header>
-                <div className="actions">
-                    <a className="actions__item zmdi zmdi-arrow-left zmdi-hc-fw" onClick={this.toRecommendationList}></a>
-                    {!this.state.edit?<a className="actions__item zmdi zmdi-refresh zmdi-hc-fw" onClick={()=>window.location.reload()}></a>:null}
-                </div>
-                <div className="card col-md-12">
-                    <div className="card-body col-md-12">
-                        <label>What coach expertise or resource provider category are you creating recommendation logic for?</label>
-                        <div className="clearfix mb-2"></div>
-                        {!this.state.selectedResource && <React.Fragment>
-                            <label>Select Coach Expertise</label>
-                            <Select className="drop_style" styles={customStyle}
-                                value={this.state.selectedCoachExpertise} onChange={this.handleExpertiseChange} options={this.state.coachExpertiseOptions} />
-                            <div className="clearfix mb-2"></div>
-                        </React.Fragment>}
-                        {!this.state.selectedCoachExpertise && <React.Fragment>
-                            <label>and/or Select resource provider category</label>
-                            <Select className="basic-multi-select" classNamePrefix="select" isMulti styles={customStyle} value={this.state.selectedResource} onChange={this.handleResourceChange} options={this.state.resourceOptions} />
-                        </React.Fragment>}
-                        <br></br>
-                        <br></br>
-                        <label>What answer selection(s) will match to the selected expertise or resoure provider category?</label>
-                        <div className="clearfix mb-2"></div>
-                        <label>Select Assessment Question:</label>
-                        <Select className="drop_style" styles={customStyle} value={this.state.selectedQuestion} onChange={this.handleQuestionChange} options={this.state.questionOptions} />
-                        <div className="clearfix mb-2"></div>
-                        {this.state.selectedQuestion && <React.Fragment> <label>Select Question Answer:</label>
-                            <Select className="drop_style" styles={customStyle} value={this.state.selectedAnswer} onChange={this.handleAnswerChange} options={this.state.answerOptions} />
-                            <div className="clearfix mb-2"></div> </React.Fragment>}
-                        {this.state.selectedAnswer && <React.Fragment> <label>What logic do you desire based on the selected answer?</label>
-                            <div className="clearfix mb-2"></div>
-                            <label className="custom-control custom-radio">
-                                <input id="answerRadio1" name="answerRadio" type="radio" className="custom-control-input" value={1} checked={this.state.answerRadio === 1} onChange={this.handleOptionChange} />
-                                <span className="custom-control-indicator"></span>
-                                <span className="custom-control-description">User must select this answer to match.</span>
-                            </label>
-                            <label className="custom-control custom-radio">
-                                <input id="answerRadio2" name="answerRadio" type="radio" className="custom-control-input" value={0} checked={this.state.answerRadio === 0} onChange={this.handleOptionChange} />
-                                <span className="custom-control-indicator"></span>
-                                <span className="custom-control-description">User must select any answer EXCEPT this to match.</span>
-                            </label>
-                            <div className="clearfix mb-2"><br></br></div> </React.Fragment>}
-                            {this.state.selectedAnswer && <React.Fragment> <label>Require the zip code to be in the City of Los Angeles?</label>
-                            <div className="clearfix mb-2"></div>
-                            <label className="custom-control custom-checkbox">
-                                <input id="zipCodeCheck" name="zipCheck" type="checkbox" className="custom-control-input" checked={this.state.zipCheck} onChange={this.handleOptionChange} />
-                                <span className="custom-control-indicator"></span>
-                                <span className="custom-control-description">City of Los Angeles Zip Code required.</span>
-                            </label>
-                            <div className="clearfix mb-2"><br></br></div> </React.Fragment> } 
-                        {this.state.selectedAnswer && <React.Fragment>
-                            <button className="btn btn-light" onClick={this.newQuestion}>Add another question?</button>
-                            <div className="clearfix mb-2"><br></br></div>
-                        </React.Fragment>}
-                        {this.state.questionTwoOptions && <React.Fragment>
-                            <label>Select Second Assessment Question:</label>
-                            <Select className="drop_style" styles={customStyle} value={this.state.selectedQuestionTwo} onChange={this.handleQuestionTwoChange} options={this.state.questionTwoOptions} />
-                            <div className="clearfix mb-2"><br></br></div>
-                        </React.Fragment>}
-                        {this.state.selectedQuestionTwo && <React.Fragment>
-                            <label>Select Second Question Answer:</label>
-                            <Select className="drop_style" styles={customStyle} value={this.state.selectedAnswerTwo} onChange={this.handleAnswerTwoChange} options={this.state.answerTwoOptions} />
-                            <div className="clearfix mb-2"><br></br></div>
-                        </React.Fragment>}
-                        {this.state.selectedAnswer && 
-                        <React.Fragment> <ControlLabel>Description</ControlLabel>
-                            <FormControl
-                                className={this.state.description.input ? 'is-valid' : 'is-invalid'}
-                                type="textarea"
-                                name="description"
-                                placeholder="Describe the reason this logic creates the recommendation"
-                                value={this.state.description.value}
-                                onChange={this.onChange}
-                            />
-                            <i className="form-control__bar"></i>
-                            <FormControl.Feedback />
-                            {!this.state.description.input ? <HelpBlock style={{ position: "absolute" }}>Description is required</HelpBlock> : null} <div className="clearfix mb-2"></div><br></br></React.Fragment>}
-                        {this.state.selectedAnswer && <React.Fragment><button className="btn btn-light" onClick={this.submit}>{this.state.edit?"Edit Recommendation Logic":"Submit New Recommendation Logic"}</button> </React.Fragment>}
-                    </div>
-                </div>
-            </React.Fragment>
+//             <React.Fragment>
+//                 <header className="content__title">
+//                     <h1>Recommendation Logic</h1>
+//                 </header>
+//                 <div className="actions">
+//                     <a className="actions__item zmdi zmdi-arrow-left zmdi-hc-fw" onClick={this.toRecommendationList}></a>
+//                     {!this.state.edit?<a className="actions__item zmdi zmdi-refresh zmdi-hc-fw" onClick={()=>window.location.reload()}></a>:null}
+//                 </div>
+//                 <div className="card col-md-12">
+//                     <div className="card-body col-md-12">
+//                         <label>What coach expertise or resource provider category are you creating recommendation logic for?</label>
+//                         <div className="clearfix mb-2"></div>
+//                         {!this.state.selectedResource && <React.Fragment>
+//                             <label>Select Coach Expertise</label>
+//                             <Select className="drop_style" styles={customStyle}
+//                                 value={this.state.selectedCoachExpertise} onChange={this.handleExpertiseChange} options={this.state.coachExpertiseOptions} />
+//                             <div className="clearfix mb-2"></div>
+//                         </React.Fragment>}
+//                         {!this.state.selectedCoachExpertise && <React.Fragment>
+//                             <label>and/or Select resource provider category</label>
+//                             <Select className="basic-multi-select" classNamePrefix="select" isMulti styles={customStyle} value={this.state.selectedResource} onChange={this.handleResourceChange} options={this.state.resourceOptions} />
+//                         </React.Fragment>}
+//                         <br></br>
+//                         <br></br>
+//                         <label>What answer selection(s) will match to the selected expertise or resoure provider category?</label>
+//                         <div className="clearfix mb-2"></div>
+//                         <label>Select Assessment Question:</label>
+//                         <Select className="drop_style" styles={customStyle} value={this.state.selectedQuestion} onChange={this.handleQuestionChange} options={this.state.questionOptions} />
+//                         <div className="clearfix mb-2"></div>
+//                         {this.state.selectedQuestion && <React.Fragment> <label>Select Question Answer:</label>
+//                             <Select className="drop_style" styles={customStyle} value={this.state.selectedAnswer} onChange={this.handleAnswerChange} options={this.state.answerOptions} />
+//                             <div className="clearfix mb-2"></div> </React.Fragment>}
+//                         {this.state.selectedAnswer && <React.Fragment> <label>What logic do you desire based on the selected answer?</label>
+//                             <div className="clearfix mb-2"></div>
+//                             <label className="custom-control custom-radio">
+//                                 <input id="answerRadio1" name="answerRadio" type="radio" className="custom-control-input" value={1} checked={this.state.answerRadio === 1} onChange={this.handleOptionChange} />
+//                                 <span className="custom-control-indicator"></span>
+//                                 <span className="custom-control-description">User must select this answer to match.</span>
+//                             </label>
+//                             <label className="custom-control custom-radio">
+//                                 <input id="answerRadio2" name="answerRadio" type="radio" className="custom-control-input" value={0} checked={this.state.answerRadio === 0} onChange={this.handleOptionChange} />
+//                                 <span className="custom-control-indicator"></span>
+//                                 <span className="custom-control-description">User must select any answer EXCEPT this to match.</span>
+//                             </label>
+//                             <div className="clearfix mb-2"><br></br></div> </React.Fragment>}
+//                             {this.state.selectedAnswer && <React.Fragment> <label>Require the zip code to be in the City of Los Angeles?</label>
+//                             <div className="clearfix mb-2"></div>
+//                             <label className="custom-control custom-checkbox">
+//                                 <input id="zipCodeCheck" name="zipCheck" type="checkbox" className="custom-control-input" checked={this.state.zipCheck} onChange={this.handleOptionChange} />
+//                                 <span className="custom-control-indicator"></span>
+//                                 <span className="custom-control-description">City of Los Angeles Zip Code required.</span>
+//                             </label>
+//                             <div className="clearfix mb-2"><br></br></div> </React.Fragment> } 
+//                         {this.state.selectedAnswer && <React.Fragment>
+//                             <button className="btn btn-light" onClick={this.newQuestion}>Add another question?</button>
+//                             <div className="clearfix mb-2"><br></br></div>
+//                         </React.Fragment>}
+//                         {this.state.questionTwoOptions && <React.Fragment>
+//                             <label>Select Second Assessment Question:</label>
+//                             <Select className="drop_style" styles={customStyle} value={this.state.selectedQuestionTwo} onChange={this.handleQuestionTwoChange} options={this.state.questionTwoOptions} />
+//                             <div className="clearfix mb-2"><br></br></div>
+//                         </React.Fragment>}
+//                         {this.state.selectedQuestionTwo && <React.Fragment>
+//                             <label>Select Second Question Answer:</label>
+//                             <Select className="drop_style" styles={customStyle} value={this.state.selectedAnswerTwo} onChange={this.handleAnswerTwoChange} options={this.state.answerTwoOptions} />
+//                             <div className="clearfix mb-2"><br></br></div>
+//                         </React.Fragment>}
+//                         {this.state.selectedAnswer && 
+//                         <React.Fragment> <ControlLabel>Description</ControlLabel>
+//                             <FormControl
+//                                 className={this.state.description.input ? 'is-valid' : 'is-invalid'}
+//                                 type="textarea"
+//                                 name="description"
+//                                 placeholder="Describe the reason this logic creates the recommendation"
+//                                 value={this.state.description.value}
+//                                 onChange={this.onChange}
+//                             />
+//                             <i className="form-control__bar"></i>
+//                             <FormControl.Feedback />
+//                             {!this.state.description.input ? <HelpBlock style={{ position: "absolute" }}>Description is required</HelpBlock> : null} <div className="clearfix mb-2"></div><br></br></React.Fragment>}
+//                         {this.state.selectedAnswer && <React.Fragment><button className="btn btn-light" onClick={this.submit}>{this.state.edit?"Edit Recommendation Logic":"Submit New Recommendation Logic"}</button> </React.Fragment>}
+//                     </div>
+//                 </div>
+//             </React.Fragment>
         )
     }
 }
