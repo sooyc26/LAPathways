@@ -103,6 +103,7 @@ namespace Sabio.Services
                 },
                 reader => { }
                 );
+            
             return "deleted";
         }
     }
