@@ -220,7 +220,6 @@ export default class MentorAddMilestoneModal extends React.Component {
                             </tbody>
                         </table>
 
-
                     </Modal.Body>
                     <Modal.Footer>
                         <div className='col-sm-12 btn-demo'>
