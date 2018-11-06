@@ -168,7 +168,6 @@ namespace Sabio.Services
                         updatedReco.ResourceProviderId = (int)ResourceProviderId;
                     }
                 });
-
             return updatedReco;
         }
     }
