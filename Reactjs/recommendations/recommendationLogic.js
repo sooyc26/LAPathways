@@ -252,7 +252,6 @@ class RecommendationLogic extends React.Component {
         }
         return (
                           {/* ...removed for brevity */}
-
         )
     }
 }
