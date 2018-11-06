@@ -277,7 +277,6 @@ export default class SurveyList extends Component {
               <th>Actions</th>
             </tr>
           </thead>
-
           <tbody>{listData}</tbody>
         </table>
         {/* </div> */}
