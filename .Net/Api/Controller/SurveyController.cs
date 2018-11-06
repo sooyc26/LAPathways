@@ -39,7 +39,6 @@ namespace Sabio.Web.Controllers.Api
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            //request.OwnerId = int.Parse(HttpContext.Current.User.Identity.Name);//using current user id
             request.OwnerId = _principal.Identity.GetCurrentUser().Id;
             int NewId = _surveyService.Create(request);
 
@@ -98,7 +97,6 @@ namespace Sabio.Web.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, new ItemsResponse<SurveyPaginationRequest> { Items = users });
         }
 
-        //update by id
         [HttpPut, Route("api/survey/{Id:int}")]
         public object UpdateById(int Id, SurveyUpdateRequest request)
         {
@@ -116,7 +114,6 @@ namespace Sabio.Web.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, new ItemResponse<Survey> { Item = user });
         }
 
-        //delte by id
         [HttpDelete, Route("api/survey-data/{Id:int}")]
         public object Delete(int Id)
         {
