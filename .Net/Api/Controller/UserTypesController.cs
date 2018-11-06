@@ -97,7 +97,6 @@ namespace Sabio.Web.Controllers.Api
             }
             userTypeService.Delete(Id);
             return Request.CreateResponse(HttpStatusCode.OK, new SuccessResponse());
-
         }
 
     }
