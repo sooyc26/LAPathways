@@ -156,7 +156,6 @@ class MilestoneTab extends React.Component {
                     </tbody>
                 </table>
             </span>
-
         )
     }
 }
