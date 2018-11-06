@@ -17,7 +17,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 
-
 namespace Sabio.Services
 {
     public class EventBriteService
