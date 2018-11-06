@@ -49,7 +49,6 @@ namespace Sabio.Services
 
                        {/* ...removed for brevity */}
 
-
         public async Task<HttpStatusCode> SendEmail(UserResetPassword request)
         {
           
