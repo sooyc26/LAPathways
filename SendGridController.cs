@@ -22,15 +22,8 @@ namespace Sabio.Web.Controllers.Api
             _sendGridService = sendGridService;
         }
 
-        [HttpPut, Route("appointment")]
-        public async Task<HttpResponseMessage> SendAppointment(Appointment appointment)
-        {
-            var result = await _sendGridService.SendAppointmentEmail(appointment);
-            return Request.CreateResponse(HttpStatusCode.OK, new ItemResponse<object>
-            {
-                Item = result
-            });
-        }
+                {/* ...removed for brevity */}
+
 
         [HttpPut, Route("resetPassword")]
         public async Task<HttpResponseMessage> SendEmail(UserResetPassword request)
