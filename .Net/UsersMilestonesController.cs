@@ -22,7 +22,6 @@ namespace Sabio.Web.Controllers.Api
             _usersMilestonesService = usersMilestonesService;
         }
 
-
         [HttpDelete, Route("api/milestone/user/{Id:int}")]
         public HttpResponseMessage Delete(int Id)
         {
