@@ -24,7 +24,6 @@ namespace Sabio.Web.Controllers.Api
 
                 {/* ...removed for brevity */}
 
-
         [HttpPut, Route("resetPassword")]
         public async Task<HttpResponseMessage> SendEmail(UserResetPassword request)
         {
