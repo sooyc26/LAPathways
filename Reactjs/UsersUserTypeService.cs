@@ -73,7 +73,4 @@ namespace Sabio.Services
             return users;
         }
     }
-
-
-
 }
