@@ -31,7 +31,6 @@ namespace Sabio.Web.Controllers.Api
             }
             List<UsersUserType> users = UserService.UserTypesReadAll_Paged(Index, Size);
 
-
             return Request.CreateResponse(HttpStatusCode.OK, new ItemsResponse<UsersUserType>
             {
                 Items = users
