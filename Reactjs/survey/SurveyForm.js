@@ -27,8 +27,6 @@ export default class SurveyForm extends Component {
         this.validation = this.validation.bind(this);
         this.validateName = this.validateName.bind(this);
 
-        // this.updateById = this.updateById.bind(this);
-
     }
 
     handleChange(e) {
