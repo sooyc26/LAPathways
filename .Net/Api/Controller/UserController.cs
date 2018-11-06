@@ -40,27 +40,6 @@ namespace Sabio.Web.Controllers.Api
             _auth = auth;
         }
 
-
-        [HttpGet, Route]
-        public HttpResponseMessage ReadAll()
-        {
-            List<User> users = _userService.ReadAll();
-            return Request.CreateResponse(HttpStatusCode.OK, new ItemsResponse<User>
-            {
-                Items = users
-            });
-        }
-
-        [HttpGet, Route("{userId:int}")]
-        public HttpResponseMessage ReadById(int userId)
-        {
-            User user = _userService.ReadById(userId);
-            return Request.CreateResponse(HttpStatusCode.OK, new ItemResponse<User>
-            {
-                Item = user
-            });
-        }
-
         [HttpGet, Route("type/{id:int}")]
         public HttpResponseMessage GetByTypeId(int id)
         {
@@ -69,45 +48,6 @@ namespace Sabio.Web.Controllers.Api
             {
                 Items = users
             });
-        }
-
-        [HttpPost, Route]
-        public HttpResponseMessage Create(UserCreate user)
-        {
-            if (user == null)
-            {
-                ModelState.AddModelError("User", "User cannot be null");
-            }
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
-            int Id = _userService.Create(user);
-            return Request.CreateResponse(HttpStatusCode.OK, new ItemResponse<int>
-            {
-                Item = Id
-            });
-        }
-        
-        [HttpPut, Route("{id:int}"), AllowAnonymous]
-        public HttpResponseMessage Update(int id, UserUpdate user)
-        {
-            if (user == null)
-            {
-                ModelState.AddModelError("User", "User cannot be null");
-            }
-            else if (id != user.Id)
-            {
-                ModelState.AddModelError("User", "Id does not match User.Id");
-            }
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
-            _userService.UpdateById(id, user);
-            
-            return Request.CreateResponse(HttpStatusCode.OK, new SuccessResponse());
-
         }
 
         [HttpPost, Route("user-mentor")]
@@ -121,10 +61,8 @@ namespace Sabio.Web.Controllers.Api
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-
             var id = _userService.CreateUserMentorMatch(request);
             return Request.CreateResponse(HttpStatusCode.OK, id);
-
         }
 
         [HttpGet, Route("user-mentor/userid/{id:int}")]
@@ -155,13 +93,6 @@ namespace Sabio.Web.Controllers.Api
             {
                 Items = userIds
             });
-        }
-
-        [HttpDelete, Route("{id:int}")]
-        public HttpResponseMessage Delete(int id)
-        {
-            _userService.DeleteById(id);
-            return Request.CreateResponse(HttpStatusCode.OK, new SuccessResponse());
         }
 
         [HttpPost, Route("login"), AllowAnonymous]
@@ -203,48 +134,6 @@ namespace Sabio.Web.Controllers.Api
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
             }
-        }
-
-        [HttpGet, Route("logout")]
-        public HttpResponseMessage Logout()
-        {
-            _auth.LogOut();
-            return Request.CreateResponse(HttpStatusCode.OK, new SuccessResponse());
-        }
-
-
-        [HttpGet, Route("{pageIndex:int}/{pageSize:int}")]
-        public HttpResponseMessage ReadAllPaged(int pageIndex, int pageSize)
-        {
-            List<UserPaged> userList = _userService.ReadAllPaged(pageIndex, pageSize);
-            return Request.CreateResponse(HttpStatusCode.OK, new ItemsResponse<UserPaged>
-            {
-                Items = userList
-            });
-        }
-
-        [HttpGet, Route("{id:int}/resources")]
-        public HttpResponseMessage resourcesUser(int id)
-        {
-            List<ResourcesUser> resourcesList = _resourcesList.ReadAll();
-            User user = _userService.ReadById(id);
-
-            if (user.UserTypeId == (int)UserTypes.Coach_Mentor && (bool)resourcesList.Any(i => i.UserId == id))
-            {                    
-                return Request.CreateResponse(HttpStatusCode.OK, new SuccessResponse());
-            }
-            else if (user.UserTypeId == (int)UserTypes.Coach_Mentor)
-            {
-                string errMsg = "User (Mentor/Coach) Id (" + id + ") does not exist in the ResourcesUser table.";
-                return Request.CreateResponse(HttpStatusCode.BadRequest, new ErrorResponse(errMsg));                
-            }
-                
-            else
-            {
-                string errMsg = "User is not a mentor/coach " + id;
-                return Request.CreateResponse(HttpStatusCode.BadRequest, new ErrorResponse(errMsg));
-            }
-
         }
 
         
