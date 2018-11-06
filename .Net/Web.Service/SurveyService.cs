@@ -222,8 +222,7 @@ namespace Sabio.Services
                 );
             return user;
         }
-
-
+        
         public string Delete(int id)
         {
             _dataProvider.ExecuteNonQuery("Survey_Delete",
@@ -234,11 +233,5 @@ namespace Sabio.Services
             (reader) => { });
             return "deleted";
         }
-
-
-
-
-
-
     }
 }
