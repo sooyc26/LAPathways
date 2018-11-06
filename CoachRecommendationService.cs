@@ -24,74 +24,7 @@ namespace Sabio.Services
             _dataProvider = dataProvider;
         }
 
-        public List<UserCoachRecommendation> GetRecommendation(int id)
-        {
-            List<int> answers = new List<int>();
-            _dataProvider.ExecuteCmd(
-                "SurveyAnswers_Select_ByInstance",
-                cmd =>
-                {
-                    cmd.AddWithValue("@InstanceId", id);
-                },
-                (reader, read) =>
-                {
-                    int answer = (int)reader["AnswerOptionId"];
-                    answers.Add(answer);
-                });
-
-            Recommendation recommendation = new Recommendation();
-            for (int i = 0; i < answers.Count; i++)
-            {
-                Type type = recommendation.GetType();
-                string answer = "Answer" + answers[i].ToString();
-                try
-                {
-                    PropertyInfo prop = type.GetProperty(answer);
-                    prop.SetValue(recommendation, true, null);
-                }
-                catch
-                {
-                    continue;
-                }
-            }
-
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("ExpertiseId");
-            DataRow dataRow = null;
-
-            foreach (string x in recommendation.Expertise)
-            {
-                if (!x.Contains("Answer"))
-                {
-                    string expertise = x.ToString();
-                    int expertiseEnum = (int)Enum.Parse(typeof(EXPERTISE_ID), expertise);
-
-                    dataRow = dataTable.NewRow();
-                    dataRow["ExpertiseId"] = expertiseEnum;
-                    dataTable.Rows.Add(dataRow);
-                }
-            }
-
-            List<UserCoachRecommendation> coaches = new List<UserCoachRecommendation>();
-            _dataProvider.ExecuteCmd(
-                "UserCoachExpertise_Select_ByExpertiseId",
-                cmd =>
-                {
-                    SqlParameter param = cmd.AddWithValue("ExpertiseId", dataTable);
-                    param.SqlDbType = SqlDbType.Structured;
-                },
-                (reader, read) =>
-                {
-                    UserCoachRecommendation coach = new UserCoachRecommendation()
-                    {
-                        CoachExpertiseId = (int)reader["Matched Expertises"],
-                        UserId = (int)reader["UserId"]
-                    };
-                    coaches.Add(coach);
-                });
-
-            return coaches;
-        }
+                        {/* ...removed for brevity */}
 
         public List<UserCoachProfile> ReadCoachProfiles(CoachExpertiseTypeIdList coaches)
         {
