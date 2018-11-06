@@ -109,7 +109,6 @@ export default class RecommendationList extends React.Component {
                     </div>
                 </div>
             </div>
-
         )
     }
 }
