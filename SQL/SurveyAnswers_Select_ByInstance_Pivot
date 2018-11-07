@@ -1,0 +1,148 @@
+USE [C60_LaPathways]
+GO
+/****** Object:  StoredProcedure [dbo].[SurveyAnswers_Select_ByInstance_Pivot]    Script Date: 11/7/2018 9:20:37 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROC [dbo].[SurveyAnswers_Select_ByInstance_Pivot]
+
+@InstanceId int
+
+AS
+
+DECLARE @cols AS NVARCHAR(MAX),
+        @query  AS NVARCHAR(MAX),
+		@joins AS NVARCHAR(MAX)
+
+
+SELECT @cols = STUFF((SELECT ',' + concat('[AO_', AO.Id, ']')
+        FROM Survey
+            INNER JOIN SurveyInstance SI
+                ON Survey.Id = SI.SurveyTemplateId
+            INNER JOIN SurveySections SS
+                ON Survey.Id = SS.Survey
+            INNER JOIN SurveyQuestions SQ
+                ON SS.Id = SQ.SectionId
+            INNER JOIN SurveyQuestionAnswerOptions AO 
+                ON SQ.Id = AO.QuestionId
+            LEFT JOIN SurveyAnswers SA 
+                ON AO.Id = SA.AnswerOptionId
+                AND SA.InstanceId = @InstanceId                    
+                WHERE SI.Id = @InstanceId
+                            GROUP BY AO.Id
+                            ORDER BY AO.Id
+
+                    FOR XML PATH(''), TYPE
+                    ).value('.', 'NVARCHAR(MAX)') 
+
+                ,1,1,'')
+
+set @query = '
+IF (SELECT object_id(''TempDB..##tmp'')) IS NOT NULL
+BEGIN
+    DROP TABLE ##tmp
+END
+ 
+		SELECT * into ##tmp FROM 
+		-- Recommendations AS CE 
+		 --JOIN
+             (
+             SELECT 
+
+                --SQ.SectionId,
+                concat(''AO_'', AO.Id) as AnswerOptionId,
+                --SA.Id as AnswerId
+				 (CASE WHEN SA.Answer IS NOT NULL 
+					THEN SA.Answer 
+					ELSE CASE WHEN SA.Id IS NULL 
+						THEN NULL 
+						ELSE 1 
+					END 
+				END) AS AnswerId
+                FROM Survey
+                INNER JOIN SurveyInstance SI
+                    ON Survey.Id = SI.SurveyTemplateId
+                INNER JOIN SurveySections SS
+                    ON Survey.Id = SS.Survey
+                INNER JOIN SurveyQuestions SQ
+                    ON SS.Id = SQ.SectionId
+                INNER JOIN SurveyQuestionAnswerOptions as AO
+                    ON SQ.Id = AO.QuestionId
+                LEFT JOIN SurveyAnswers SA 
+                    ON AO.Id = SA.AnswerOptionId
+                AND SA.InstanceId = '+CAST(@InstanceId as nvarchar(10))+'
+
+                Where SI.Id='+CAST(@InstanceId as nvarchar(10))+'
+            )x
+
+            pivot 
+            (
+                sum(AnswerId)
+                for AnswerOptionId in (' + @cols + ')
+            ) P 
+			/*
+			ON CE.AO_855 = P.AO_855 AND
+			CE.AO_856 = P.AO_856 AND 
+			CE.AO_857 = P.AO_857 AND 
+			CE.AO_858 = P.AO_858 AND 
+			CE.AO_860 = P.AO_860 AND 
+			CE.AO_861 = P.AO_861 AND 
+			CE.AO_862 = P.AO_862 AND 
+			CE.AO_863 = P.AO_863 AND 
+			CE.AO_864 = P.AO_864 AND 
+			CE.AO_865 = P.AO_865 AND 
+			
+			CE.AO_866 = P.AO_866 AND 
+			CE.AO_867 = P.AO_867 AND
+			CE.AO_868 = P.AO_868 AND 
+			CE.AO_869 = P.AO_869 AND 
+			CE.AO_870 = P.AO_870 AND 
+			CE.AO_871 = P.AO_871 AND 
+			CE.AO_872 = P.AO_872 AND 
+			CE.AO_873 = P.AO_873 AND 
+			CE.AO_874 = P.AO_874 AND 
+			CE.AO_875 = P.AO_875 AND 
+			CE.AO_876 = P.AO_876 AND 
+		
+			CE.AO_877 = P.AO_877 AND 
+			CE.AO_878 = P.AO_878 AND
+			CE.AO_879 = P.AO_879 AND 
+			CE.AO_880 = P.AO_880 AND 
+			CE.AO_881 = P.AO_881 AND 
+			CE.AO_882 = P.AO_882 AND 
+			CE.AO_883 = P.AO_883 AND 
+			CE.AO_884 = P.AO_884 AND 
+			CE.AO_885 = P.AO_885 AND 
+			CE.AO_886 = P.AO_886 AND 
+			CE.AO_887 = P.AO_887 AND
+			
+			CE.AO_888 = P.AO_888 AND 
+			CE.AO_889 = P.AO_889 AND
+			CE.AO_890 = P.AO_890 AND 
+			CE.AO_891 = P.AO_891 AND 
+			CE.AO_892 = P.AO_892 AND 
+			CE.AO_893 = P.AO_893 AND 
+			CE.AO_894 = P.AO_894 AND 
+			CE.AO_895 = P.AO_895 AND 
+			CE.AO_896 = P.AO_896 AND 
+			CE.AO_897 = P.AO_897 AND 
+			CE.AO_898 = P.AO_898 AND 
+		
+			CE.AO_899 = P.AO_899 AND 
+			CE.AO_900 = P.AO_900 AND
+			CE.AO_901 = P.AO_901 AND 
+			CE.AO_902 = P.AO_902 AND 
+			CE.AO_903 = P.AO_903 AND 
+			CE.AO_904 = P.AO_904 AND 
+			CE.AO_905 = P.AO_905 AND 
+			CE.AO_906 = P.AO_906 AND 
+			CE.AO_907 = P.AO_907  
+			*/
+            '
+execute(@query);
+/*
+exec SurveyAnswers_Select_ByInstance_Pivot @InstanceId=115
+*/
+SELECT * FROM ##tmp
