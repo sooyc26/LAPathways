@@ -1,0 +1,126 @@
+USE [C60_LaPathways]
+GO
+/****** Object:  StoredProcedure [dbo].[CoachExpertise_ResourceProvider_Recommendation]    Script Date: 11/7/2018 9:19:54 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROC [dbo].[CoachExpertise_ResourceProvider_Recommendation]
+
+@InstId int
+
+AS 
+/*
+exec CoachExpertise_ResourceProvider_Recommendation 
+@InstId = 112
+*/
+
+DECLARE @MyCursor CURSOR,
+		@WhereString nvarchar(max),
+		@WhereQuery nvarchar(max),
+		@CoachExpertiseTypeId nvarchar(max),
+		@ResourceProviderId nvarchar(max),
+		--@Command  varchar(500),
+		@Count int 
+
+--delete #TempRecommendations
+IF OBJECT_ID('tempdb..#TempRecommendations') IS NOT NULL DROP TABLE #TempRecommendations 
+
+CREATE TABLE #TempRecommendations(
+CoachExpertiseTypeId int,
+ResourceProviderId int
+)
+--delete #TempSurveyAnswers 
+IF OBJECT_ID('TempDB..#TempSurveyAnswers') IS NOT NULL DROP TABLE #TempSurveyAnswers
+
+CREATE TABLE #TempSurveyAnswers(
+    [AO_855] [int] NULL,
+    [AO_856] [int] NULL,
+    [AO_857] [int] NULL,
+    [AO_858] [int] NULL,
+    [AO_859] [int] NULL,
+    [AO_860] [int] NULL,
+    [AO_861] [int] NULL,
+    [AO_862] [int] NULL,
+    [AO_863] [int] NULL,
+    [AO_864] [int] NULL,
+    [AO_865] [int] NULL,
+    [AO_866] [int] NULL,
+    [AO_867] [int] NULL,
+    [AO_868] [int] NULL,
+    [AO_869] [int] NULL,
+    [AO_870] [int] NULL,
+    [AO_871] [int] NULL,
+    [AO_872] [int] NULL,
+    [AO_873] [int] NULL,
+    [AO_874] [int] NULL,
+    [AO_875] [int] NULL,
+    [AO_876] [int] NULL,
+    [AO_877] [int] NULL,
+    [AO_878] [int] NULL,
+    [AO_879] [int] NULL,
+    [AO_880] [int] NULL,
+    [AO_881] [int] NULL,
+    [AO_882] [int] NULL,
+    [AO_883] [int] NULL,
+    [AO_884] [int] NULL,
+    [AO_885] [int] NULL,
+    [AO_886] [int] NULL,
+    [AO_887] [int] NULL,
+    [AO_888] [int] NULL,
+    [AO_889] [int] NULL,
+    [AO_890] [int] NULL,
+    [AO_891] [int] NULL,
+    [AO_892] [int] NULL,
+    [AO_893] [int] NULL,
+    [AO_894] [int] NULL,
+    [AO_895] [int] NULL,
+    [AO_896] [int] NULL,
+    [AO_897] [int] NULL,
+    [AO_898] [int] NULL,
+    [AO_899] [int] NULL,
+    [AO_900] [int] NULL,
+    [AO_901] [int] NULL,
+    [AO_902] [int] NULL,
+    [AO_903] [int] NULL,
+    [AO_904] [int] NULL,
+    [AO_905] [int] NULL,
+    [AO_906] [int] NULL,
+    [AO_907] [int] NULL,
+    [AO_1810] [int] NULL,
+    [AO_1811] [int] NULL
+)
+
+insert into #TempSurveyAnswers
+exec SurveyAnswers_Select_ByInstance_Pivot @InstanceId=@InstId
+
+/*
+exec CoachExpertise_ResourceProvider_Recommendation 
+@InstId = 114
+*/
+
+--loop through Recommandations Columns
+BEGIN
+    SET @MyCursor = CURSOR FOR
+    select WhereString,CoachExpertiseTypeId,ResourceProviderId from Recommendations
+
+    OPEN @MyCursor 
+    FETCH NEXT FROM @MyCursor 
+    INTO @WhereString,@CoachExpertiseTypeId,@ResourceProviderId
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+      /* YOUR ALGORITHM GOES HERE*/
+	SET @WhereQuery = 'select @Count = count (*) from #TempSurveyAnswers WHERE ' + @WhereString
+      execute sp_executesql @WhereQuery, N'@Count int out', @Count out
+
+	  if (@Count > 0) insert into #TempRecommendations VALUES (@CoachExpertiseTypeId,@ResourceProviderId)
+
+	  FETCH NEXT FROM @MyCursor 
+      INTO @WhereString,@CoachExpertiseTypeId,@ResourceProviderId
+    END; 
+
+    CLOSE @MyCursor;
+    DEALLOCATE @MyCursor;
+END;
+Select * From #TempRecommendations
