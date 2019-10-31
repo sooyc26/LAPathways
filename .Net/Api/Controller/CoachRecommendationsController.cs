@@ -1,9 +1,9 @@
-﻿using Sabio.Data.Providers;
-using Sabio.Models.Domain;
-using Sabio.Models.Domain.CoachResourceRecommendations;
-using Sabio.Models.Requests.CoachRecommendation;
-using Sabio.Models.Responses;
-using Sabio.Services;
+﻿using LaPathways.Data.Providers;
+using LaPathways.Models.Domain;
+using LaPathways.Models.Domain.CoachResourceRecommendations;
+using LaPathways.Models.Requests.CoachRecommendation;
+using LaPathways.Models.Responses;
+using LaPathways.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Sabio.Web.Controllers.Api
+namespace LaPathways.Web.Controllers.Api
 {
     [RoutePrefix("api/recommendations")]
     public class CoachRecommendationsController : ApiController
