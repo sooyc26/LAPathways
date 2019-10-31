@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using Sabio.Data.Providers;
-using Sabio.Models.Domain;
-using Sabio.Models.Domain.CoachResourceRecommendations;
-using Sabio.Models.Requests.CoachRecommendation;
+using LaPathways.Data.Providers;
+using LaPathways.Models.Domain;
+using LaPathways.Models.Domain.CoachResourceRecommendations;
+using LaPathways.Models.Requests.CoachRecommendation;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Sabio.Models.Domain.Recommendation;
 
-namespace Sabio.Services
+namespace LaPathways.Services
 {
     public class CoachRecommendationService
     {
