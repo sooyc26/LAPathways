@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Sabio.Models.Domain;
-using Sabio.Models.Responses;
-using Sabio.Services;
-using Sabio.Web.Core.Enums;
+using LaPathways.Models.Domain;
+using LaPathways.Models.Responses;
+using LaPathways.Services;
+using LaPathways.Web.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Script.Serialization;
-using Sabio.Data.Providers;
-using Sabio.Models.Requests.EventBriteSearchCriteria;
-using Sabio.Models;
+using LaPathways.Data.Providers;
+using LaPathways.Models.Requests.EventBriteSearchCriteria;
+using LaPathways.Models;
 
 
-namespace Sabio.Web.Controllers.Api
+namespace LaPathways.Web.Controllers.Api
 {
 
     public class EventBriteController : ApiController
