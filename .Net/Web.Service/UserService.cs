@@ -1,10 +1,10 @@
-﻿using Sabio.Data.Providers;
-using Sabio.Models;
-using Sabio.Models.Domain;
-using Sabio.Models.Requests.UserMentorMatch;
-using Sabio.Models.Requests.Users;
-using Sabio.Services.Cryptography;
-using Sabio.Services.Security;
+﻿using LaPathways.Data.Providers;
+using LaPathways.Models;
+using LaPathways.Models.Domain;
+using LaPathways.Models.Requests.UserMentorMatch;
+using LaPathways.Models.Requests.Users;
+using LaPathways.Services.Cryptography;
+using LaPathways.Services.Security;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,7 +13,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
 
-namespace Sabio.Services
+namespace LaPathways.Services
 {
     public class UserService : IUserService
     {
