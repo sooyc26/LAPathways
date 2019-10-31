@@ -5,13 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Sabio.Models.Requests.Users;
-using Sabio.Services;
+using LaPathways.Models.Requests.Users;
+using LaPathways.Services;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Security.Cryptography;
-using Sabio.Data.Providers;
-using Sabio.Models.Domain;
+using LaPathways.Data.Providers;
+using LaPathways.Models.Domain;
 using System.Net.Mail;
 
 namespace LaPathways.Services
