@@ -1,15 +1,15 @@
-﻿using Sabio.Data.Providers;
-using Sabio.Models.Requests.Recommendation;
+﻿using LaPathways.Data.Providers;
+using LaPathways.Models.Requests.Recommendation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sabio.Models.Domain;
+using LaPathways.Models.Domain;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Sabio.Services
+namespace LaPathways.Services
 {
     public class RecommendationService
     {
