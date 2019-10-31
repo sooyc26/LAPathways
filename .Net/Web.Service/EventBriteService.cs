@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-using Sabio.Data.Providers;
-using Sabio.Models.Domain;
+using LaPathways.Data.Providers;
+using LaPathways.Models.Domain;
 using System.Configuration;
 using System.Net;
 using Newtonsoft.Json;
-using Sabio.Models.Requests.EventBriteSearchCriteria;
-using Sabio.Models;
-using Sabio.Services.Cryptography;
+using LaPathways.Models.Requests.EventBriteSearchCriteria;
+using LaPathways.Models;
+using LaPathways.Services.Cryptography;
 using System.Security.Claims;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 
-namespace Sabio.Services
+namespace LaPathways.Services
 {
     public class EventBriteService
     {
