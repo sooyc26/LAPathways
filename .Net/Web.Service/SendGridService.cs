@@ -14,7 +14,7 @@ using Sabio.Data.Providers;
 using Sabio.Models.Domain;
 using System.Net.Mail;
 
-namespace Sabio.Services
+namespace LaPathways.Services
 {
     public class SendGridService 
     {
