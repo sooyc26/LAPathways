@@ -1,7 +1,7 @@
-﻿using Sabio.Models.Domain;
-using Sabio.Models.Requests.Recommendation;
-using Sabio.Models.Responses;
-using Sabio.Services;
+﻿using LaPathways.Models.Domain;
+using LaPathways.Models.Requests.Recommendation;
+using LaPathways.Models.Responses;
+using LaPathways.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
-namespace Sabio.Web.Controllers.Api
+namespace LaPathways.Web.Controllers.Api
 {
     public class RecommendationsController:ApiController
     {
