@@ -7,22 +7,22 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Sabio.Data.Providers;
-using Sabio.Models.Domain;
-using Sabio.Models.Requests;
-using Sabio.Models.Requests.Users;
-using Sabio.Models.Responses;
-using Sabio.Services;
-using Sabio.Web.Core.Enums;
+using LaPathways.Data.Providers;
+using LaPathways.Models.Domain;
+using LaPathways.Models.Requests;
+using LaPathways.Models.Requests.Users;
+using LaPathways.Models.Responses;
+using LaPathways.Services;
+using LaPathways.Web.Core.Enums;
 using Newtonsoft.Json;
 using System.Web.Security;
 using System.Web.Script.Serialization;
 using System.IO;
-using Sabio.Models.Requests.UserMentorMatch;
+using LaPathways.Models.Requests.UserMentorMatch;
 using System.Security.Principal;
-using Sabio.Services.Security;
+using LaPathways.Services.Security;
 
-namespace Sabio.Web.Controllers.Api
+namespace LaPathways.Web.Controllers.Api
 {
     [RoutePrefix("api/user")]
     public class UserController : ApiController
